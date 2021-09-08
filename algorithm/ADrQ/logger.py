@@ -171,3 +171,39 @@ class Logger(object):
         if not self._should_log(step, log_frequency):
             return
         self.log_histogram(key + '_w', param.weight.data, step)
+        if hasattr(param.weight, 'grad') and param.weight.grad is not None:
+            self.log_histogram(key + '_w_g', param.weight.grad.data, step)
+        if hasattr(param, 'bias') and hasattr(param.bias, 'data'):
+            self.log_histogram(key + '_b', param.bias.data, step)
+            if hasattr(param.bias, 'grad') and param.bias.grad is not None:
+                self.log_histogram(key + '_b_g', param.bias.grad.data, step)
+
+    def log_image(self, key, image, step, log_frequency=None):
+        if not self._should_log(step, log_frequency):
+            return
+        assert key.startswith('train') or key.startswith('eval')
+        self._try_sw_log_image(key, image, step)
+
+    def log_video(self, key, frames, step, log_frequency=None):
+        if not self._should_log(step, log_frequency):
+            return
+        assert key.startswith('train') or key.startswith('eval')
+        self._try_sw_log_video(key, frames, step)
+
+    def log_histogram(self, key, histogram, step, log_frequency=None):
+        if not self._should_log(step, log_frequency):
+            return
+        assert key.startswith('train') or key.startswith('eval')
+        self._try_sw_log_histogram(key, histogram, step)
+
+    def dump(self, step, save=True, ty=None):
+        step = self._update_step(step)
+        if ty is None:
+            self._train_mg.dump(step, 'train', save)
+            self._eval_mg.dump(step, 'eval', save)
+        elif ty == 'eval':
+            self._eval_mg.dump(step, 'eval', save)
+        elif ty == 'train':
+            self._train_mg.dump(step, 'train', save)
+        else:
+            raise f'invalid log type: {ty}'
