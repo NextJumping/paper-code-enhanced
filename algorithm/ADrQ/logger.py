@@ -86,3 +86,88 @@ class MetersGroup(object):
             value = data.get(key, 0)
             pieces.append(self._format(disp_key, value, ty))
         print(' | '.join(pieces))
+
+    def dump(self, step, prefix, save=True):
+        if len(self._meters) == 0:
+            return
+        if save:
+            data = self._prime_meters()
+            data['step'] = step
+            self._dump_to_csv(data)
+            self._dump_to_console(data, prefix)
+        self._meters.clear()
+
+
+class Logger(object):
+    def __init__(self,
+                 log_dir,
+                 save_tb=False,
+                 log_frequency=10000,
+                 action_repeat=1,
+                 agent='drq'):
+        self._log_dir = log_dir
+        self._log_frequency = log_frequency
+        self._action_repeat = action_repeat
+        if save_tb:
+            tb_dir = os.path.join(log_dir, 'tb')
+            if os.path.exists(tb_dir):
+                try:
+                    shutil.rmtree(tb_dir)
+                except:
+                    print("logger.py warning: Unable to remove tb directory")
+                    pass
+            self._sw = SummaryWriter(tb_dir)
+        else:
+            self._sw = None
+        train_format = COMMON_TRAIN_FORMAT
+
+        self._train_mg = MetersGroup(os.path.join(log_dir, 'train'),
+                                     formating=train_format)
+        self._eval_mg = MetersGroup(os.path.join(log_dir, 'eval'),
+                                    formating=COMMON_EVAL_FORMAT)
+
+    def _should_log(self, step, log_frequency):
+        log_frequency = log_frequency or self._log_frequency
+        return step % log_frequency == 0
+
+    def _update_step(self, step):
+        return step * self._action_repeat
+
+    def _try_sw_log(self, key, value, step):
+        step = self._update_step(step)
+        if self._sw is not None:
+            self._sw.add_scalar(key, value, step)
+
+    def _try_sw_log_image(self, key, image, step):
+        step = self._update_step(step)
+        if self._sw is not None:
+            assert image.dim() == 3
+            grid = torchvision.utils.make_grid(image.unsqueeze(1))
+            self._sw.add_image(key, grid, step)
+
+    def _try_sw_log_video(self, key, frames, step):
+        step = self._update_step(step)
+        if self._sw is not None:
+            frames = torch.from_numpy(np.array(frames))
+            frames = frames.unsqueeze(0)
+            self._sw.add_video(key, frames, step, fps=30)
+
+    def _try_sw_log_histogram(self, key, histogram, step):
+        step = self._update_step(step)
+        if self._sw is not None:
+            self._sw.add_histogram(key, histogram, step)
+
+    def log(self, key, value, step, n=1, log_frequency=1):
+        if not self._should_log(step, log_frequency):
+            return
+        assert key.startswith('train') or key.startswith('eval')
+        if type(value) == torch.Tensor:
+            value = value.item()
+        self._try_sw_log(key, value / n, step)
+        mg = self._train_mg if key.startswith('train') else self._eval_mg
+        mg.log(key, value, n)
+
+    def log_param(self, key, param, step, log_frequency=None):
+        if not self._should_log(step, log_frequency):
+            return
+        self.log_histogram(key + '_w', param.weight.data, step)
