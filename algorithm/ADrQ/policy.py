@@ -116,3 +116,84 @@ class Critic(nn.Module):
             nn.Linear(self.encoder.feature_dim + 5, 64),
             nn.ReLU(inplace=True),
             nn.Linear(64, 32),
+            nn.ReLU(inplace=True),
+            nn.Linear(32, 1)
+        )
+        self.outputs = dict()
+        self.apply(utils.weight_init)
+
+    def forward(self, obs, action, others, detach_encoder=False):
+        assert obs.size(0) == action.size(0)
+        obs = self.encoder(obs, detach=detach_encoder)
+        obs = torch.cat([obs, others], dim=1)
+
+        obs_action = torch.cat([obs, action], dim=-1)
+        q1 = self.Q1(obs_action)
+        q2 = self.Q2(obs_action)
+
+
+        return q1, q2
+
+
+class Agent(object):
+
+    def __init__(self, obs_shape, action_shape, action_range, device,
+                 discount, init_temperature, lr, actor_update_frequency,
+                 critic_tau, critic_target_update_frequency, batch_size,
+                 log_std_bounds, hidden_dim, hidden_depth, feature_dim, target_num):
+        self.action_range = action_range
+        self.device = device
+        self.discount = discount
+        self.critic_tau = critic_tau
+        self.actor_update_frequency = actor_update_frequency
+        self.critic_target_update_frequency = critic_target_update_frequency
+        self.batch_size = batch_size
+
+        self.actor = Actor(obs_shape, action_shape, hidden_dim, hidden_depth,
+                 log_std_bounds, feature_dim).to(device)
+
+        self.critic = Critic(obs_shape, action_shape, hidden_dim, hidden_depth, feature_dim).to(device)
+        self.critic_target = []
+        for i in range(target_num):
+            self.critic_target.append(Critic(obs_shape, action_shape, hidden_dim, hidden_depth, feature_dim).to(device))
+            self.critic_target[i].load_state_dict(self.critic.state_dict())
+
+        self.actor.encoder.copy_conv_weights_from(self.critic.encoder)
+
+        self.log_alpha = torch.tensor(np.log(init_temperature)).to(device)
+        self.log_alpha.requires_grad = True
+        self.target_entropy = -action_shape[0]
+
+        self.actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=lr)
+        self.critic_optimizer = torch.optim.Adam(self.critic.parameters(),
+                                                 lr=lr)
+        self.log_alpha_optimizer = torch.optim.Adam([self.log_alpha], lr=lr)
+
+        self.train()
+        for i in range(target_num):
+            self.critic_target[i].train()
+
+        self.target_index = 0
+        self.target_num = target_num
+
+    def train(self, training=True):
+        self.training = training
+        self.actor.train(training)
+        self.critic.train(training)
+
+    @property
+    def alpha(self):
+        return self.log_alpha.exp()
+
+    def select_action(self, obs, others, sample=False):
+        obs = torch.FloatTensor(obs).to(self.device)
+        others = torch.FloatTensor(others).to(self.device)
+        dist = self.actor(obs, others)
+        action = dist.sample() if sample else dist.mean
+        action = action.clamp(*self.action_range)
+        assert action.ndim == 2 and action.shape[0] == 1
+        return utils.to_np(action[0])
+
+    def update_critic(self, obs, obs_aug, action, reward, next_obs,
+                      next_obs_aug, not_done, others, next_others):
+        with torch.no_grad():
