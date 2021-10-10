@@ -181,3 +181,29 @@ class Logger(object):
     def log_image(self, key, image, step, log_frequency=None):
         if not self._should_log(step, log_frequency):
             return
+        assert key.startswith('train') or key.startswith('eval')
+        self._try_sw_log_image(key, image, step)
+
+    def log_video(self, key, frames, step, log_frequency=None):
+        if not self._should_log(step, log_frequency):
+            return
+        assert key.startswith('train') or key.startswith('eval')
+        self._try_sw_log_video(key, frames, step)
+
+    def log_histogram(self, key, histogram, step, log_frequency=None):
+        if not self._should_log(step, log_frequency):
+            return
+        assert key.startswith('train') or key.startswith('eval')
+        self._try_sw_log_histogram(key, histogram, step)
+
+    def dump(self, step, save=True, ty=None):
+        step = self._update_step(step)
+        if ty is None:
+            self._train_mg.dump(step, 'train', save)
+            self._eval_mg.dump(step, 'eval', save)
+        elif ty == 'eval':
+            self._eval_mg.dump(step, 'eval', save)
+        elif ty == 'train':
+            self._train_mg.dump(step, 'train', save)
+        else:
+            raise f'invalid log type: {ty}'
