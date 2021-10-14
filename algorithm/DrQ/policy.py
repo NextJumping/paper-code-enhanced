@@ -151,3 +151,71 @@ class Agent(object):
 
         self.actor = Actor(obs_shape, action_shape, hidden_dim, hidden_depth,
                  log_std_bounds, feature_dim).to(device)
+
+        self.critic = Critic(obs_shape, action_shape, hidden_dim, hidden_depth, feature_dim).to(device)
+        self.critic_target = Critic(obs_shape, action_shape, hidden_dim, hidden_depth, feature_dim).to(device)
+        self.critic_target.load_state_dict(self.critic.state_dict())
+
+        self.actor.encoder.copy_conv_weights_from(self.critic.encoder)
+
+        self.log_alpha = torch.tensor(np.log(init_temperature)).to(device)
+        self.log_alpha.requires_grad = True
+        self.target_entropy = -action_shape[0]
+
+        self.actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=lr)
+        self.critic_optimizer = torch.optim.Adam(self.critic.parameters(),
+                                                 lr=lr)
+        self.log_alpha_optimizer = torch.optim.Adam([self.log_alpha], lr=lr)
+
+        self.train()
+        self.critic_target.train()
+
+
+    def train(self, training=True):
+        self.training = training
+        self.actor.train(training)
+        self.critic.train(training)
+
+    @property
+    def alpha(self):
+        return self.log_alpha.exp()
+
+    def select_action(self, obs, others, sample=False):
+        obs = torch.FloatTensor(obs).to(self.device)
+        others = torch.FloatTensor(others).to(self.device)
+        dist = self.actor(obs, others)
+        action = dist.sample() if sample else dist.mean
+        action = action.clamp(*self.action_range)
+        assert action.ndim == 2 and action.shape[0] == 1
+        return utils.to_np(action[0])
+
+    def update_critic(self, obs, obs_aug, action, reward, next_obs,
+                      next_obs_aug, not_done, others, next_others):
+        with torch.no_grad():
+            dist = self.actor(next_obs, next_others)
+            next_action = dist.rsample()
+            log_prob = dist.log_prob(next_action).sum(-1, keepdim=True)
+            target_Q = 0.0
+
+            target_Q1, target_Q2 = self.critic_target(next_obs, next_action, next_others)
+            target_V = torch.min(target_Q1, target_Q2) - self.alpha.detach() * log_prob
+            target_Q += reward + (not_done * self.discount * target_V)
+
+            dist_aug = self.actor(next_obs_aug, next_others)
+            next_action_aug = dist_aug.rsample()
+            log_prob_aug = dist_aug.log_prob(next_action_aug).sum(-1, keepdim=True)
+            target_Q_aug = 0.0
+
+            target_Q1, target_Q2 = self.critic_target(next_obs_aug, next_action_aug, next_others)
+            target_V = torch.min(target_Q1, target_Q2) - self.alpha.detach() * log_prob_aug
+            target_Q_aug += reward + (not_done * self.discount * target_V)
+
+            target_Q = (target_Q + target_Q_aug) / 2
+
+        current_Q1, current_Q2 = self.critic(obs, action, others)
+        critic_loss = F.mse_loss(current_Q1, target_Q) + F.mse_loss(
+            current_Q2, target_Q)
+
+        Q1_aug, Q2_aug = self.critic(obs_aug, action, others)
+
+        critic_loss += F.mse_loss(Q1_aug, target_Q) + F.mse_loss(
