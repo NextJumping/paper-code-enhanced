@@ -219,3 +219,58 @@ class Agent(object):
         Q1_aug, Q2_aug = self.critic(obs_aug, action, others)
 
         critic_loss += F.mse_loss(Q1_aug, target_Q) + F.mse_loss(
+            Q2_aug, target_Q)
+
+
+        self.critic_optimizer.zero_grad()
+        critic_loss.backward()
+        self.critic_optimizer.step()
+
+        return critic_loss.detach()
+
+    def update_actor_and_alpha(self, obs, others):
+        dist = self.actor(obs, others, detach_encoder=True)
+        action = dist.rsample()
+        log_prob = dist.log_prob(action).sum(-1, keepdim=True)
+        actor_Q1, actor_Q2 = self.critic(obs, action, others, detach_encoder=True)
+
+        actor_Q = torch.min(actor_Q1, actor_Q2)
+
+        actor_loss = (self.alpha.detach() * log_prob - actor_Q).mean()
+
+
+        self.actor_optimizer.zero_grad()
+        actor_loss.backward()
+
+        self.actor_optimizer.step()
+
+
+        self.log_alpha_optimizer.zero_grad()
+        alpha_loss = (self.alpha *
+                      (-log_prob - self.target_entropy).detach()).mean()
+
+        alpha_loss.backward()
+        self.log_alpha.grad.data.clamp_(-1, 1)
+        self.log_alpha_optimizer.step()
+
+
+    def update(self, replay_buffer, step):
+
+        obs, action, reward, next_obs, not_done, obs_aug, next_obs_aug,\
+        others, next_others = replay_buffer.sample(self.batch_size)
+        critic_loss = self.update_critic(obs, obs_aug, action, reward, next_obs,
+                                              next_obs_aug, not_done, others, next_others)
+
+        if step % self.actor_update_frequency == 0:
+            self.update_actor_and_alpha(obs, others)
+
+        if step % self.critic_target_update_frequency == 0:
+            utils.soft_update_params(self.critic, self.critic_target, self.critic_tau)
+        return critic_loss
+
+    def save(self):
+        torch.save(self.actor.state_dict(), "actor")
+        torch.save(self.critic.state_dict(), "critic")
+
+    def load(self):
+        self.actor.load_state_dict(torch.load("actor"))
