@@ -17,4 +17,5 @@ class ReplayBuffer(object):
             kornia.augmentation.RandomCrop((obs_shape[-2], obs_shape[-1])))
 
         self.obses = np.empty((capacity, *obs_shape), dtype=np.float32)
-        self.next_obses = np.empty((capacity, *obs_shape), dtype=np.fl
+        self.next_obses = np.empty((capacity, *obs_shape), dtype=np.float32)
+        self.actions = np.empty((capacity, *action_shape), 
