@@ -21,4 +21,5 @@ class ReplayBuffer(object):
         self.actions = np.empty((capacity, *action_shape), dtype=np.float32)
         self.rewards = np.empty((capacity, 1), dtype=np.float32)
         self.not_dones = np.empty((capacity, 1), dtype=np.float32)
-        self.
+        self.not_dones_no_max = np.empty((capacity, 1), dtype=np.float32)
+        self.others
