@@ -23,4 +23,11 @@ class ReplayBuffer(object):
         self.not_dones = np.empty((capacity, 1), dtype=np.float32)
         self.not_dones_no_max = np.empty((capacity, 1), dtype=np.float32)
         self.others = np.empty((capacity, 4), dtype=np.float32)
-        self.next_others = np.empty((capa
+        self.next_others = np.empty((capacity, 4), dtype=np.float32)
+
+
+
+        self.idx = 0
+        self.full = False
+
+    def __len__(
