@@ -34,4 +34,5 @@ class ReplayBuffer(object):
         return self.capacity if self.full else self.idx
 
     def add(self, obs, action, reward, next_obs, done, done_no_max, others, next_others):
-      
+        np.copyto(self.obses[self.idx], obs)
+        np.copyto(self.actions[self.idx]
