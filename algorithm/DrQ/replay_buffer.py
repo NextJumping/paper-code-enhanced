@@ -50,3 +50,7 @@ class ReplayBuffer(object):
     def sample(self, batch_size):
         idxs = np.random.randint(0,
                                  self.capacity if self.full else self.idx,
+                                 size=batch_size)
+
+        obses = self.obses[idxs]
+       
