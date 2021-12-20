@@ -55,4 +55,6 @@ class ReplayBuffer(object):
         obses = self.obses[idxs]
         next_obses = self.next_obses[idxs]
         obses_aug = obses.copy()
-  
+        next_obses_aug = next_obses.copy()
+
+        obses = torch.as_tensor(obses, device=self.device).float
