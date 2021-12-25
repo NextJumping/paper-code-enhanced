@@ -61,4 +61,5 @@ class ReplayBuffer(object):
         next_obses = torch.as_tensor(next_obses, device=self.device).float()
         obses_aug = torch.as_tensor(obses_aug, device=self.device).float()
         next_obses_aug = torch.as_tensor(next_obses_aug,
-                       
+                                         device=self.device).float()
+        actions = torch.as_tensor(self.acti
