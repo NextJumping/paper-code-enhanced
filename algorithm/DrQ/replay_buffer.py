@@ -64,4 +64,5 @@ class ReplayBuffer(object):
                                          device=self.device).float()
         actions = torch.as_tensor(self.actions[idxs], device=self.device)
         rewards = torch.as_tensor(self.rewards[idxs], device=self.device)
-        not_dones_no_max = torch.as_tensor(self.not_do
+        not_dones_no_max = torch.as_tensor(self.not_dones_no_max[idxs],
+                                           device=self.devic
