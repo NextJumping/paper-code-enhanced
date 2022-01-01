@@ -73,4 +73,5 @@ class ReplayBuffer(object):
         obses = self.aug_trans(obses)
         next_obses = self.aug_trans(next_obses)
 
-        obses_aug = self.a
+        obses_aug = self.aug_trans(obses_aug)
+        next_obses_aug = self.aug_trans(next_obse
