@@ -76,4 +76,4 @@ class ReplayBuffer(object):
         obses_aug = self.aug_trans(obses_aug)
         next_obses_aug = self.aug_trans(next_obses_aug)
 
-        return obses, actions, rewards, next_obses, not_dones_no_max, obses_aug
+        return obses, actions, rewards, next_obses, not_dones_no_max, obses_aug, next_obses_aug, others, next_others
