@@ -10,4 +10,7 @@ import utils
 class ReplayBuffer(object):
     def __init__(self, obs_shape, capacity, device):
         self.capacity = capacity
-        self.device = devi
+        self.device = device
+
+        self.obses = np.empty((capacity, *obs_shape), dtype=np.float32)
+        self.
