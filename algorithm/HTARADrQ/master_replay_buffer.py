@@ -13,4 +13,5 @@ class ReplayBuffer(object):
         self.device = device
 
         self.obses = np.empty((capacity, *obs_shape), dtype=np.float32)
-        self.
+        self.next_obses = np.empty((capacity, *obs_shape), dtype=np.float32)
+        self.ac
