@@ -17,4 +17,10 @@ class ReplayBuffer(object):
         self.actions = np.empty((capacity, 1), dtype=np.int64)
         self.rewards = np.empty((capacity, 1), dtype=np.float32)
         self.not_dones = np.empty((capacity, 1), dtype=np.float32)
-        self.not_dones_no_max = np.empty((capacity, 1), dtype=np.fl
+        self.not_dones_no_max = np.empty((capacity, 1), dtype=np.float32)
+
+
+        self.idx = 0
+        self.full = False
+
+    def __len__(self):
