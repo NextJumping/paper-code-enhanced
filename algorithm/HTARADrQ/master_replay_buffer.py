@@ -24,3 +24,6 @@ class ReplayBuffer(object):
         self.full = False
 
     def __len__(self):
+        return self.capacity if self.full else self.idx
+
+    def add(self, obs,
