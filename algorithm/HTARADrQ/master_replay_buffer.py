@@ -26,4 +26,5 @@ class ReplayBuffer(object):
     def __len__(self):
         return self.capacity if self.full else self.idx
 
-    def add(self, obs,
+    def add(self, obs, action, reward, next_obs, done, done_no_max):
+        np.copyto(self.o
