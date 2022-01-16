@@ -29,4 +29,5 @@ class ReplayBuffer(object):
     def add(self, obs, action, reward, next_obs, done, done_no_max):
         np.copyto(self.obses[self.idx], obs)
         np.copyto(self.actions[self.idx], action)
-      
+        np.copyto(self.rewards[self.idx], reward)
+        np.copyto(self.next_obses[sel
