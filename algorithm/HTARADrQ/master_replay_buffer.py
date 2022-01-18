@@ -35,4 +35,5 @@ class ReplayBuffer(object):
         np.copyto(self.not_dones_no_max[self.idx], not done_no_max)
 
 
-       
+        self.idx = (self.idx + 1) % self.capacity
+        self.full = self.full or self.i
