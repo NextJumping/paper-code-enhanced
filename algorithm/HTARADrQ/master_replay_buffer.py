@@ -43,4 +43,7 @@ class ReplayBuffer(object):
                                  self.capacity if self.full else self.idx,
                                  size=batch_size)
 
-        obses = self
+        obses = self.obses[idxs]
+        next_obses = self.next_obses[idxs]
+
+        obses = t
