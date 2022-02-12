@@ -54,4 +54,4 @@ class ReplayBuffer(object):
                                            device=self.device)
 
 
-        return obses, actions, rewards, next_obses, not_dones_no_m
+        return obses, actions, rewards, next_obses, not_dones_no_max
