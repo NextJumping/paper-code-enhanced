@@ -81,3 +81,90 @@ class Actor(nn.Module):
 
         self.outputs = dict()
         self.apply(utils.weight_init)
+
+    def forward(self, obs, others, detach_encoder=False):
+
+        obs0 = self.encoder(obs[:, 0, :, :], detach=detach_encoder)
+        obs1 = self.encoder(obs[:, 1, :, :], detach=detach_encoder)
+        obs2 = self.encoder(obs[:, 2, :, :], detach=detach_encoder)
+        obs3 = self.encoder(obs[:, 3, :, :], detach=detach_encoder)
+
+        xs = []
+        xs.append(obs0)
+        xs.append(obs1)
+        xs.append(obs2)
+        xs.append(obs3)
+        ht = torch.zeros(obs.size()[0], 8).to("cuda")
+        ct = torch.zeros(obs.size()[0], 8).to("cuda")
+        for x in xs:
+            ht, ct = self.lstm(x, (ht, ct))
+
+        obs = ht
+
+        obs = torch.cat([obs, others], dim=1)
+        mu, log_std = self.trunk(obs).chunk(2, dim=-1)
+
+        log_std = torch.tanh(log_std)
+        log_std_min, log_std_max = self.log_std_bounds
+        log_std = log_std_min + 0.5 * (log_std_max - log_std_min) * (log_std +
+                                                                     1)
+        std = log_std.exp()
+
+
+        dist = utils.SquashedNormal(mu, std)
+        return dist
+
+
+class Critic(nn.Module):
+
+    def __init__(self, obs_shape, action_shape, hidden_dim, hidden_depth, feature_dim=8):
+        super().__init__()
+
+        self.encoder = Encoder(obs_shape, feature_dim)
+
+        self.Q1 = nn.Sequential(
+            nn.Linear(self.encoder.feature_dim + 5, 64),
+            nn.ReLU(inplace=True),
+            nn.Linear(64, 32),
+            nn.ReLU(inplace=True),
+            nn.Linear(32, 1)
+        )
+
+        self.Q2 = nn.Sequential(
+            nn.Linear(self.encoder.feature_dim + 5, 64),
+            nn.ReLU(inplace=True),
+            nn.Linear(64, 32),
+            nn.ReLU(inplace=True),
+            nn.Linear(32, 1)
+        )
+
+        self.lstm = nn.LSTMCell(8, 8)
+
+        self.outputs = dict()
+        self.apply(utils.weight_init)
+
+    def forward(self, obs, action, others, detach_encoder=False):
+        assert obs.size(0) == action.size(0)
+
+        obs0 = self.encoder(obs[:, 0, :, :], detach=detach_encoder)
+        obs1 = self.encoder(obs[:, 1, :, :], detach=detach_encoder)
+        obs2 = self.encoder(obs[:, 2, :, :], detach=detach_encoder)
+        obs3 = self.encoder(obs[:, 3, :, :], detach=detach_encoder)
+
+        xs = []
+        xs.append(obs0)
+        xs.append(obs1)
+        xs.append(obs2)
+        xs.append(obs3)
+        ht = torch.zeros(obs.size()[0], 8).to("cuda")
+        ct = torch.zeros(obs.size()[0], 8).to("cuda")
+        for x in xs:
+            ht, ct = self.lstm(x, (ht, ct))
+
+        obs = ht
+
+        obs = torch.cat([obs, others], dim=1)
+
+        obs_action = torch.cat([obs, action], dim=-1)
+        q1 = self.Q1(obs_action)
+        q2 = self.Q2(obs_action)
