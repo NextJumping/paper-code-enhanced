@@ -11,4 +11,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from skimage.util.shape import view_as_windows
-from torch import distr
+from torch import distributions as pyd
+
+
+class eval_mode(object):
+    def __init__(self, *models):
+ 
