@@ -21,4 +21,7 @@ class eval_mode(object):
     def __enter__(self):
         self.prev_states = []
         for model in self.models:
-            self.prev_states.append(model.t
+            self.prev_states.append(model.training)
+            model.train(False)
+
+    def __exit__(sel
