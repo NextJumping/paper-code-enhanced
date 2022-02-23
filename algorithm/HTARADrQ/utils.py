@@ -24,4 +24,5 @@ class eval_mode(object):
             self.prev_states.append(model.training)
             model.train(False)
 
-    def __exit__(sel
+    def __exit__(self, *args):
+        for model, state in zip(self.models, self.prev_states):
