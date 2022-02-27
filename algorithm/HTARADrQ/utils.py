@@ -37,4 +37,6 @@ def soft_update_params(net, target_net, tau):
 
 
 def set_seed_everywhere(seed):
-    torch.man
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed
