@@ -54,4 +54,10 @@ def make_dir(*path_parts):
 
 
 def tie_weights(src, trg):
-    assert type(src) 
+    assert type(src) == type(trg)
+    trg.weight = src.weight
+    trg.bias = src.bias
+
+
+def weight_init(m):
+    i
