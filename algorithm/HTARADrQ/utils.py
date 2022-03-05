@@ -61,4 +61,7 @@ def tie_weights(src, trg):
 
 def weight_init(m):
     if isinstance(m, nn.Linear):
-        nn.init.orthogonal_(m.weight.d
+        nn.init.orthogonal_(m.weight.data)
+        if hasattr(m.bias, 'data'):
+            m.bias.data.fill_(0.0)
+    e
