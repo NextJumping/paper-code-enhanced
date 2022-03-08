@@ -67,4 +67,8 @@ def weight_init(m):
     elif isinstance(m, nn.Conv2d) or isinstance(m, nn.ConvTranspose2d):
         gain = nn.init.calculate_gain('relu')
         nn.init.orthogonal_(m.weight.data, gain)
-        i
+        if hasattr(m.bias, 'data'):
+            m.bias.data.fill_(0.0)
+
+
+def mlp(input_dim, hidd
