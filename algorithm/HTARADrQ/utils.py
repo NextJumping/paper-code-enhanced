@@ -82,4 +82,10 @@ def mlp(input_dim, hidden_dim, output_dim, hidden_depth, output_mod=None):
     if output_mod is not None:
         mods.append(output_mod)
     trunk = nn.Sequential(*mods)
-    return 
+    return trunk
+
+
+def to_np(t):
+    if t is None:
+        return None
+    elif t.nelement(
