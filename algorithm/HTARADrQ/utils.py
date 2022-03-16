@@ -91,4 +91,8 @@ def to_np(t):
     elif t.nelement() == 0:
         return np.array([])
     else:
-        return t.cpu().de
+        return t.cpu().detach().numpy()
+
+
+class FrameStack(gym.Wrapper):
+    def __init__(self, en
