@@ -104,4 +104,7 @@ class FrameStack(gym.Wrapper):
             low=0,
             high=1,
             shape=((shp[0] * k,) + shp[1:]),
-            dtype=env.observation_sp
+            dtype=env.observation_space.dtype)
+        self._max_episode_steps = env._max_episode_steps
+
+    def res
