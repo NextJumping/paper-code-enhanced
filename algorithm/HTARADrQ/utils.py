@@ -120,4 +120,7 @@ class FrameStack(gym.Wrapper):
 
     def _get_obs(self):
         assert len(self._frames) == self._k
-        return np.
+        return np.concatenate(list(self._frames), axis=0)
+
+
+class TanhTransform(pyd.transforms.Transfo
