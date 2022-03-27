@@ -118,4 +118,6 @@ class FrameStack(gym.Wrapper):
         self._frames.append(obs)
         return self._get_obs(), reward, done, info
 
-    de
+    def _get_obs(self):
+        assert len(self._frames) == self._k
+        return np.
