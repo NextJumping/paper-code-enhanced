@@ -125,4 +125,8 @@ class FrameStack(gym.Wrapper):
 
 class TanhTransform(pyd.transforms.Transform):
     domain = pyd.constraints.real
-    codomain = pyd.constraints.int
+    codomain = pyd.constraints.interval(-1.0, 1.0)
+    bijective = True
+    sign = +1
+
+    def __ini
