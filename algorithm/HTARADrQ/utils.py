@@ -129,4 +129,5 @@ class TanhTransform(pyd.transforms.Transform):
     bijective = True
     sign = +1
 
-    def __ini
+    def __init__(self, cache_size=1):
+        super().__init__(cache_size=cache_size
