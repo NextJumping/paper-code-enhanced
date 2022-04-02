@@ -130,4 +130,8 @@ class TanhTransform(pyd.transforms.Transform):
     sign = +1
 
     def __init__(self, cache_size=1):
-        super().__init__(cache_size=cache_size
+        super().__init__(cache_size=cache_size)
+
+    @staticmethod
+    def atanh(x):
+        return 0.5 * (x.log1p() - (-x).
