@@ -139,4 +139,8 @@ class TanhTransform(pyd.transforms.Transform):
     def __eq__(self, other):
         return isinstance(other, TanhTransform)
 
-    def
+    def _call(self, x):
+        return x.tanh()
+
+    def _inverse(self, y):
+        retu
