@@ -149,4 +149,7 @@ class TanhTransform(pyd.transforms.Transform):
         return 2. * (math.log(2.) - x - F.softplus(-2. * x))
 
 
-class SquashedNormal(pyd.transformed_distribution.TransformedDistribu
+class SquashedNormal(pyd.transformed_distribution.TransformedDistribution):
+    def __init__(self, loc, scale):
+        self.loc = loc
+      
