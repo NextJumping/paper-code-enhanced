@@ -155,4 +155,7 @@ class SquashedNormal(pyd.transformed_distribution.TransformedDistribution):
         self.scale = scale
 
         self.base_dist = pyd.Normal(loc, scale)
-        transforms 
+        transforms = [TanhTransform()]
+        super().__init__(self.base_dist, transforms)
+
+    @property
