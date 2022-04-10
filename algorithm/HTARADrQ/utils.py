@@ -163,3 +163,4 @@ class SquashedNormal(pyd.transformed_distribution.TransformedDistribution):
         mu = self.loc
         for tr in self.transforms:
             mu = tr(mu)
+        return mu
