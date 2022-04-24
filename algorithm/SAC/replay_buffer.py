@@ -14,4 +14,5 @@ class ReplayBuffer(object):
 
 
         self.obses = np.empty((capacity, *obs_shape), dtype=np.float32)
-        self.next_
+        self.next_obses = np.empty((capacity, *obs_shape), dtype=np.float32)
+        self.actions = np.empty((capac
