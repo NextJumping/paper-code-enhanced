@@ -50,4 +50,6 @@ class ReplayBuffer(object):
                                  size=batch_size)
 
         obses = self.obses[idxs]
- 
+        next_obses = self.next_obses[idxs]
+
+        obses = torch.as_tensor(ob
