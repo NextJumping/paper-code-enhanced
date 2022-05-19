@@ -54,4 +54,5 @@ class ReplayBuffer(object):
 
         obses = torch.as_tensor(obses, device=self.device).float()
         next_obses = torch.as_tensor(next_obses, device=self.device).float()
-        actions = torch.as_tensor(self.actions[i
+        actions = torch.as_tensor(self.actions[idxs], device=self.device)
+        rewards = torch.as_tensor(self.rewards[idxs], device
