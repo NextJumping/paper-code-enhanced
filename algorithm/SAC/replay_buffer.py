@@ -63,4 +63,4 @@ class ReplayBuffer(object):
 
 
 
-        return obs
+        return obses, actions, rewards, next_obses, not_dones_no_max, others, next_others
