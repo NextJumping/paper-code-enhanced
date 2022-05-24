@@ -10,4 +10,9 @@ import gym
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from skimage.util.shape impo
+from skimage.util.shape import view_as_windows
+from torch import distributions as pyd
+
+
+class eval_mode(object):
+    d
