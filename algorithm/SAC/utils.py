@@ -15,4 +15,7 @@ from torch import distributions as pyd
 
 
 class eval_mode(object):
-    d
+    def __init__(self, *models):
+        self.models = models
+
+    def __enter__(self):
