@@ -26,4 +26,8 @@ class eval_mode(object):
 
     def __exit__(self, *args):
         for model, state in zip(self.models, self.prev_states):
-     
+            model.train(state)
+        return False
+
+
+def soft_update_params(net, target
