@@ -39,4 +39,10 @@ def soft_update_params(net, target_net, tau):
 def set_seed_everywhere(seed):
     torch.manual_seed(seed)
     if torch.cuda.is_available():
-        torch.cuda.manual_seed_all(
+        torch.cuda.manual_seed_all(seed)
+    np.random.seed(seed)
+    random.seed(seed)
+
+
+def make_dir(*path_parts):
+    dir_p
