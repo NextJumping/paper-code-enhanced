@@ -59,4 +59,6 @@ def tie_weights(src, trg):
     trg.bias = src.bias
 
 
-def weight
+def weight_init(m):
+    if isinstance(m, nn.Linear):
+        nn.init.orthogonal_(m.weight.d
