@@ -68,4 +68,7 @@ def weight_init(m):
         gain = nn.init.calculate_gain('relu')
         nn.init.orthogonal_(m.weight.data, gain)
         if hasattr(m.bias, 'data'):
-            m.bias.data.fill_
+            m.bias.data.fill_(0.0)
+
+
+def mlp(input_dim, hidden_dim, output_dim, hidden_depth, output_mod=None)
