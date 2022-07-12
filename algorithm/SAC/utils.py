@@ -76,4 +76,5 @@ def mlp(input_dim, hidden_dim, output_dim, hidden_depth, output_mod=None):
         mods = [nn.Linear(input_dim, output_dim)]
     else:
         mods = [nn.Linear(input_dim, hidden_dim), nn.ReLU(inplace=True)]
-    
+        for i in range(hidden_depth - 1):
+            mods += [nn.Linear(hidden_dim, hidden_dim), nn.ReLU
