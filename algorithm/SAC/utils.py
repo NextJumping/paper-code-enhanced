@@ -96,4 +96,6 @@ def to_np(t):
 
 class FrameStack(gym.Wrapper):
     def __init__(self, env, k):
-        gym.Wrapper.__
+        gym.Wrapper.__init__(self, env)
+        self._k = k
+        self._frames = deque([], maxlen=k
