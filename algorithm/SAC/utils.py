@@ -109,4 +109,6 @@ class FrameStack(gym.Wrapper):
 
     def reset(self):
         obs = self.env.reset()
-        for 
+        for _ in range(self._k):
+            self._frames.append(obs)
+        return self._
