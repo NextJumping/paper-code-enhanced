@@ -142,4 +142,8 @@ class TanhTransform(pyd.transforms.Transform):
     def _call(self, x):
         return x.tanh()
 
-    def _inverse(
+    def _inverse(self, y):
+        return self.atanh(y)
+
+    def log_abs_det_jacobian(self, x, y):
+ 
