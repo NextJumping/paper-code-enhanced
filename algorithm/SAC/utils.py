@@ -137,4 +137,9 @@ class TanhTransform(pyd.transforms.Transform):
         return 0.5 * (x.log1p() - (-x).log1p())
 
     def __eq__(self, other):
-        return isinstance(other, TanhTransfor
+        return isinstance(other, TanhTransform)
+
+    def _call(self, x):
+        return x.tanh()
+
+    def _inverse(
