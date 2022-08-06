@@ -159,4 +159,7 @@ class SquashedNormal(pyd.transformed_distribution.TransformedDistribution):
         super().__init__(self.base_dist, transforms)
 
     @property
-    def mean(se
+    def mean(self):
+        mu = self.loc
+        for tr in self.transforms:
+            mu = tr(mu)
