@@ -5,4 +5,9 @@ import torch.nn.functional as F
 import copy
 import math
 
-im
+import utils
+
+
+class Encoder(nn.Module):
+
+    def __init__(self, obs_shape, feature_dim=8
