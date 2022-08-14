@@ -14,4 +14,7 @@ class Encoder(nn.Module):
         super().__init__()
 
         assert len(obs_shape) == 3
-        self.num_lay
+        self.num_layers = 4
+        self.num_filters = 8
+        self.output_logits = False
+   
