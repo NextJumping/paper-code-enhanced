@@ -17,4 +17,7 @@ class Encoder(nn.Module):
         self.num_layers = 4
         self.num_filters = 8
         self.output_logits = False
-   
+        self.feature_dim = feature_dim
+
+        self.convs = nn.ModuleList([
+        
