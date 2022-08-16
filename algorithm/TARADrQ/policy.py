@@ -22,4 +22,5 @@ class Encoder(nn.Module):
         self.convs = nn.ModuleList([
             nn.Conv2d(1, self.num_filters, 2, stride=2),
             nn.Conv2d(self.num_filters, self.num_filters, 2, stride=2),
-            nn.Conv2d(self.num_filters, self.num_filte
+            nn.Conv2d(self.num_filters, self.num_filters, 2, stride=2),
+            nn.Conv2d(self.num_filters, self.num_filters,
