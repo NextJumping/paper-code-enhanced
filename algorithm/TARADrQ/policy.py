@@ -34,4 +34,8 @@ class Encoder(nn.Module):
         conv = torch.relu(self.convs[0](obs))
 
         for i in range(1, self.num_layers):
-            conv = t
+            conv = torch.relu(self.convs[i](conv))
+
+        return conv
+
+    def forward(self, obs,
