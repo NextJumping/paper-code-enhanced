@@ -23,4 +23,10 @@ class Encoder(nn.Module):
             nn.Conv2d(1, self.num_filters, 2, stride=2),
             nn.Conv2d(self.num_filters, self.num_filters, 2, stride=2),
             nn.Conv2d(self.num_filters, self.num_filters, 2, stride=2),
-            nn.Conv2d(self.num_filters, self.num_filters,
+            nn.Conv2d(self.num_filters, self.num_filters, 2, stride=2)
+        ])
+
+
+        self.outputs = dict()
+
+    def forward_conv(self, ob
