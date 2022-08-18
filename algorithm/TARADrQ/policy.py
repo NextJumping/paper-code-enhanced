@@ -42,4 +42,7 @@ class Encoder(nn.Module):
         h = self.forward_conv(obs)
 
         if detach:
-            h = 
+            h = h.detach()
+
+        out = nn.functional.adaptive_avg_pool2d(h, (1,1))
+      
