@@ -38,4 +38,8 @@ class Encoder(nn.Module):
 
         return conv
 
-    def forward(self, obs,
+    def forward(self, obs, detach=False):
+        h = self.forward_conv(obs)
+
+        if detach:
+            h = 
