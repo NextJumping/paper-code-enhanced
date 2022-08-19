@@ -45,4 +45,8 @@ class Encoder(nn.Module):
             h = h.detach()
 
         out = nn.functional.adaptive_avg_pool2d(h, (1,1))
-      
+        out = torch.squeeze(out, 3)
+        out = torch.squeeze(out, 2)
+
+
+        r
