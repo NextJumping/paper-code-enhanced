@@ -49,4 +49,7 @@ class Encoder(nn.Module):
         out = torch.squeeze(out, 2)
 
 
-        r
+        return out
+
+    def copy_conv_weights_from(self, source):
+        for i in range(self.num
