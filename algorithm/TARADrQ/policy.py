@@ -52,4 +52,9 @@ class Encoder(nn.Module):
         return out
 
     def copy_conv_weights_from(self, source):
-        for i in range(self.num
+        for i in range(self.num_layers):
+            utils.tie_weights(src=source.convs[i], trg=self.convs[i])
+
+
+
+class
