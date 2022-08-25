@@ -57,4 +57,7 @@ class Encoder(nn.Module):
 
 
 
-class
+class Actor(nn.Module):
+
+    def __init__(self, obs_shape, action_shape, hidden_dim, hidden_depth,
+     
