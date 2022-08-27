@@ -63,4 +63,8 @@ class Actor(nn.Module):
                  log_std_bounds, feature_dim=8):
         super().__init__()
 
-        self.encoder 
+        self.encoder = Encoder(obs_shape, feature_dim)
+
+        self.log_std_bounds = log_std_bounds
+
+        self.tr
