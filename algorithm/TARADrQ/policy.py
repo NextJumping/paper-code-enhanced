@@ -67,4 +67,6 @@ class Actor(nn.Module):
 
         self.log_std_bounds = log_std_bounds
 
-        self.tr
+        self.trunk = nn.Sequential(
+            nn.Linear(self.encoder.feature_dim + 4, 64),
+  
