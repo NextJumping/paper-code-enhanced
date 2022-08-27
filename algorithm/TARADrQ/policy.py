@@ -69,4 +69,6 @@ class Actor(nn.Module):
 
         self.trunk = nn.Sequential(
             nn.Linear(self.encoder.feature_dim + 4, 64),
-  
+            nn.ReLU(inplace=True),
+            nn.Linear(64, 32),
+            nn.ReLU(i
