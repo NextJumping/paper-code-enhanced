@@ -71,4 +71,8 @@ class Actor(nn.Module):
             nn.Linear(self.encoder.feature_dim + 4, 64),
             nn.ReLU(inplace=True),
             nn.Linear(64, 32),
-            nn.ReLU(i
+            nn.ReLU(inplace=True),
+            nn.Linear(32, 2 * action_shape[0])
+        )
+
+        s
