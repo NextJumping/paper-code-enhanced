@@ -82,4 +82,6 @@ class Actor(nn.Module):
         self.relu = nn.ReLU()
         self.softmax = nn.Softmax(dim=1)
 
-    def forward(self, obs, others, detach_encode
+    def forward(self, obs, others, detach_encoder=False):
+
+        obs0 = self.encoder(obs[:, 0, :, :], detach=detach_encoder)
