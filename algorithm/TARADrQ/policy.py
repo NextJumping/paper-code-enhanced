@@ -77,4 +77,7 @@ class Actor(nn.Module):
 
         self.lstm = nn.LSTMCell(8, 8)
         self.ta = nn.Linear(2 * 8, 2)
-        self.out
+        self.outputs = dict()
+        self.apply(utils.weight_init)
+        self.relu = nn.ReLU()
+    
