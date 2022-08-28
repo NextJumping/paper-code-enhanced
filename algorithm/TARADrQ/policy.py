@@ -75,4 +75,6 @@ class Actor(nn.Module):
             nn.Linear(32, 2 * action_shape[0])
         )
 
-        s
+        self.lstm = nn.LSTMCell(8, 8)
+        self.ta = nn.Linear(2 * 8, 2)
+        self.out
