@@ -80,4 +80,6 @@ class Actor(nn.Module):
         self.outputs = dict()
         self.apply(utils.weight_init)
         self.relu = nn.ReLU()
-    
+        self.softmax = nn.Softmax(dim=1)
+
+    def forward(self, obs, others, detach_encode
