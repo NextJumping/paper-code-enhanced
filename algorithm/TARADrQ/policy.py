@@ -85,3 +85,5 @@ class Actor(nn.Module):
     def forward(self, obs, others, detach_encoder=False):
 
         obs0 = self.encoder(obs[:, 0, :, :], detach=detach_encoder)
+        obs1 = self.encoder(obs[:, 1, :, :], detach=detach_encoder)
+       
