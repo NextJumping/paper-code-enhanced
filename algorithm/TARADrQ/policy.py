@@ -90,4 +90,7 @@ class Actor(nn.Module):
         obs3 = self.encoder(obs[:, 3, :, :], detach=detach_encoder)
 
         xs = []
-        x
+        xs.append(obs0)
+        xs.append(obs1)
+        xs.append(obs2)
+        xs.append(
