@@ -93,4 +93,6 @@ class Actor(nn.Module):
         xs.append(obs0)
         xs.append(obs1)
         xs.append(obs2)
-        xs.append(
+        xs.append(obs3)
+        ht = torch.zeros(obs.size()[0], 8).to("cuda")
+        ct = torch.ze
