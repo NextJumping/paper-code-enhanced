@@ -99,4 +99,7 @@ class Actor(nn.Module):
         h_list = []
 
         for x in xs:
-       
+            ht, ct = self.lstm(x, (ht, ct))
+            h_list.append(ht)
+
+        total_
