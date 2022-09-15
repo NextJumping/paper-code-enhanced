@@ -109,4 +109,8 @@ class Actor(nn.Module):
         beta_t = self.softmax(beta_t)
         out = torch.zeros(obs.size()[0], 8).to("cuda")
         for i in range(len(h_list)):
-            out = 
+            out = out + h_list[i] * beta_t[:, i].reshape(obs.size()[0], 1)
+
+        obs = out
+
+        obs = to
