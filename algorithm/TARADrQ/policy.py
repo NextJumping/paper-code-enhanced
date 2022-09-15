@@ -105,4 +105,6 @@ class Actor(nn.Module):
         total_ht = h_list[0]
         for i in range(1, len(h_list)):
             total_ht = torch.cat((total_ht, h_list[1]), 1)
-        beta_t = self.relu(se
+        beta_t = self.relu(self.ta(total_ht))
+        beta_t = self.softmax(beta_t)
+        out = torch.zeros(ob
