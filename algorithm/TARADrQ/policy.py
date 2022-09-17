@@ -113,4 +113,7 @@ class Actor(nn.Module):
 
         obs = out
 
-        obs = to
+        obs = torch.cat([obs, others], dim=1)
+        mu, log_std = self.trunk(obs).chunk(2, dim=-1)
+
+        log_std 
