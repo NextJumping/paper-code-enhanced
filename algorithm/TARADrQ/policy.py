@@ -116,4 +116,6 @@ class Actor(nn.Module):
         obs = torch.cat([obs, others], dim=1)
         mu, log_std = self.trunk(obs).chunk(2, dim=-1)
 
-        log_std 
+        log_std = torch.tanh(log_std)
+        log_std_min, log_std_max = self.log_std_bounds
+    
