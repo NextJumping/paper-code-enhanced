@@ -127,4 +127,7 @@ class Actor(nn.Module):
         return dist
 
 
-class Critic(
+class Critic(nn.Module):
+
+    def __init__(self, obs_shape, action_shape, hidden_dim, hidden_depth, feature_dim=8):
+ 
