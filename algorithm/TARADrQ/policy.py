@@ -120,4 +120,11 @@ class Actor(nn.Module):
         log_std_min, log_std_max = self.log_std_bounds
         log_std = log_std_min + 0.5 * (log_std_max - log_std_min) * (log_std +
                                                                      1)
-        std = lo
+        std = log_std.exp()
+
+
+        dist = utils.SquashedNormal(mu, std)
+        return dist
+
+
+class Critic(
