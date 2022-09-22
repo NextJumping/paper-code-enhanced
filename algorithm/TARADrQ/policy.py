@@ -130,4 +130,6 @@ class Actor(nn.Module):
 class Critic(nn.Module):
 
     def __init__(self, obs_shape, action_shape, hidden_dim, hidden_depth, feature_dim=8):
- 
+        super().__init__()
+
+        self.encoder = Encoder(obs_shape, feature_dim)
