@@ -133,3 +133,6 @@ class Critic(nn.Module):
         super().__init__()
 
         self.encoder = Encoder(obs_shape, feature_dim)
+
+        self.Q1 = nn.Sequential(
+            nn.Linear(self.encoder.feature_d
