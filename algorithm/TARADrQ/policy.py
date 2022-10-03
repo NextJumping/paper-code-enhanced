@@ -135,4 +135,7 @@ class Critic(nn.Module):
         self.encoder = Encoder(obs_shape, feature_dim)
 
         self.Q1 = nn.Sequential(
-            nn.Linear(self.encoder.feature_d
+            nn.Linear(self.encoder.feature_dim + 5, 64),
+            nn.ReLU(inplace=True),
+            nn.Linear(64, 32),
+           
