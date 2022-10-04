@@ -142,4 +142,6 @@ class Critic(nn.Module):
             nn.Linear(32, 1)
         )
 
-        self.Q2 = 
+        self.Q2 = nn.Sequential(
+            nn.Linear(self.encoder.feature_dim + 5, 64),
+            nn.R
