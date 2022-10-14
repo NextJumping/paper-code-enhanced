@@ -147,4 +147,7 @@ class Critic(nn.Module):
             nn.ReLU(inplace=True),
             nn.Linear(64, 32),
             nn.ReLU(inplace=True),
-     
+            nn.Linear(32, 1)
+        )
+        self.lstm = nn.LSTMCell(8, 8)
+        self.ta = nn.Li
