@@ -150,4 +150,7 @@ class Critic(nn.Module):
             nn.Linear(32, 1)
         )
         self.lstm = nn.LSTMCell(8, 8)
-        self.ta = nn.Li
+        self.ta = nn.Linear(2 * 8, 2)
+        self.outputs = dict()
+        self.apply(utils.weight_init)
+  
