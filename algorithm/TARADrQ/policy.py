@@ -157,4 +157,5 @@ class Critic(nn.Module):
         self.softmax = nn.Softmax(dim=1)
 
 
-    def for
+    def forward(self, obs, action, others, detach_encoder=False):
+        assert obs.size(0
