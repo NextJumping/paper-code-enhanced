@@ -153,4 +153,8 @@ class Critic(nn.Module):
         self.ta = nn.Linear(2 * 8, 2)
         self.outputs = dict()
         self.apply(utils.weight_init)
-  
+        self.relu = nn.ReLU()
+        self.softmax = nn.Softmax(dim=1)
+
+
+    def for
