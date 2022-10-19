@@ -161,4 +161,5 @@ class Critic(nn.Module):
         assert obs.size(0) == action.size(0)
 
         obs0 = self.encoder(obs[:, 0, :, :], detach=detach_encoder)
-   
+        obs1 = self.encoder(obs[:, 1, :, :], detach=detach_encoder)
+        obs2 = self.enc
