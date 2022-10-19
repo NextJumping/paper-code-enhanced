@@ -163,4 +163,7 @@ class Critic(nn.Module):
         obs0 = self.encoder(obs[:, 0, :, :], detach=detach_encoder)
         obs1 = self.encoder(obs[:, 1, :, :], detach=detach_encoder)
         obs2 = self.encoder(obs[:, 2, :, :], detach=detach_encoder)
-        obs3 = self.encoder(o
+        obs3 = self.encoder(obs[:, 3, :, :], detach=detach_encoder)
+
+        xs = []
+        xs.append(obs0)
