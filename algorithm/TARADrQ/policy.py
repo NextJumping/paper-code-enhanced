@@ -158,4 +158,7 @@ class Critic(nn.Module):
 
 
     def forward(self, obs, action, others, detach_encoder=False):
-        assert obs.size(0
+        assert obs.size(0) == action.size(0)
+
+        obs0 = self.encoder(obs[:, 0, :, :], detach=detach_encoder)
+   
