@@ -167,3 +167,6 @@ class Critic(nn.Module):
 
         xs = []
         xs.append(obs0)
+        xs.append(obs1)
+        xs.append(obs2)
+        xs.append(obs
