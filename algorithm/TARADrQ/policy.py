@@ -174,4 +174,8 @@ class Critic(nn.Module):
         ct = torch.zeros(obs.size()[0], 8).to("cuda")
         h_list = []
 
-        for x 
+        for x in xs:
+            ht, ct = self.lstm(x, (ht, ct))
+            h_list.append(ht)
+
+  
