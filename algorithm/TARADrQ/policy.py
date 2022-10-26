@@ -178,4 +178,6 @@ class Critic(nn.Module):
             ht, ct = self.lstm(x, (ht, ct))
             h_list.append(ht)
 
-  
+        total_ht = h_list[0]
+        for i in range(1, len(h_list)):
+            total_
