@@ -183,4 +183,6 @@ class Critic(nn.Module):
             total_ht = torch.cat((total_ht, h_list[1]), 1)
         beta_t = self.relu(self.ta(total_ht))
         beta_t = self.softmax(beta_t)
-        out = torch.zeros
+        out = torch.zeros(obs.size()[0], 8).to("cuda")
+        for i in range(len(h_list)):
+            ou
