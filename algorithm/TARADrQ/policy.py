@@ -187,4 +187,7 @@ class Critic(nn.Module):
         for i in range(len(h_list)):
             out = out + h_list[i] * beta_t[:, i].reshape(obs.size()[0], 1)
 
-        ob
+        obs = out
+        obs = torch.cat([obs, others], dim=1)
+
+        obs_action = torch
