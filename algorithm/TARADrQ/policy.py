@@ -190,4 +190,6 @@ class Critic(nn.Module):
         obs = out
         obs = torch.cat([obs, others], dim=1)
 
-        obs_action = torch
+        obs_action = torch.cat([obs, action], dim=-1)
+        q1 = self.Q1(obs_action)
+        
