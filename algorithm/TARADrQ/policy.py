@@ -192,4 +192,11 @@ class Critic(nn.Module):
 
         obs_action = torch.cat([obs, action], dim=-1)
         q1 = self.Q1(obs_action)
-        
+        q2 = self.Q2(obs_action)
+
+        return q1, q2
+
+
+class Agent(object):
+
+    
