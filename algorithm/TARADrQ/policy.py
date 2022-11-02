@@ -204,4 +204,6 @@ class Agent(object):
                  critic_tau, critic_target_update_frequency, batch_size,
                  log_std_bounds, hidden_dim, hidden_depth, feature_dim, target_num):
         self.action_range = action_range
-        self.d
+        self.device = device
+        self.discount = discount
+        self.critic_tau = c
