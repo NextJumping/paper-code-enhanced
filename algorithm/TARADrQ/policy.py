@@ -200,4 +200,5 @@ class Critic(nn.Module):
 class Agent(object):
 
     def __init__(self, obs_shape, action_shape, action_range, device,
-            
+                 discount, init_temperature, lr, actor_update_frequency,
+                 critic_
