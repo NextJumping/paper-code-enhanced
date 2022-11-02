@@ -202,4 +202,6 @@ class Agent(object):
     def __init__(self, obs_shape, action_shape, action_range, device,
                  discount, init_temperature, lr, actor_update_frequency,
                  critic_tau, critic_target_update_frequency, batch_size,
-                 log_std_bounds, hidden_di
+                 log_std_bounds, hidden_dim, hidden_depth, feature_dim, target_num):
+        self.action_range = action_range
+        self.d
