@@ -208,4 +208,4 @@ class Agent(object):
         self.discount = discount
         self.critic_tau = critic_tau
         self.actor_update_frequency = actor_update_frequency
-        self.cr
+        self.critic_target_update_frequency = critic_target_update_frequency
