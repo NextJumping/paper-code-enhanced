@@ -206,4 +206,6 @@ class Agent(object):
         self.action_range = action_range
         self.device = device
         self.discount = discount
-        self.critic_tau = c
+        self.critic_tau = critic_tau
+        self.actor_update_frequency = actor_update_frequency
+        self.cr
