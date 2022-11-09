@@ -211,4 +211,5 @@ class Agent(object):
         self.critic_target_update_frequency = critic_target_update_frequency
         self.batch_size = batch_size
 
-        self.actor = Actor(obs_shape, 
+        self.actor = Actor(obs_shape, action_shape, hidden_dim, hidden_depth,
+                 log_std_bounds, feature_dim
