@@ -212,4 +212,6 @@ class Agent(object):
         self.batch_size = batch_size
 
         self.actor = Actor(obs_shape, action_shape, hidden_dim, hidden_depth,
-                 log_std_bounds, feature_dim
+                 log_std_bounds, feature_dim).to(device)
+
+        self.critic = Critic(obs_shape, action_shape, hidden_dim,
