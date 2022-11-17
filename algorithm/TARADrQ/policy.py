@@ -214,4 +214,6 @@ class Agent(object):
         self.actor = Actor(obs_shape, action_shape, hidden_dim, hidden_depth,
                  log_std_bounds, feature_dim).to(device)
 
-        self.critic = Critic(obs_shape, action_shape, hidden_dim,
+        self.critic = Critic(obs_shape, action_shape, hidden_dim, hidden_depth, feature_dim).to(device)
+        self.critic_target = []
+        
