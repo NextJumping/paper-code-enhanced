@@ -216,4 +216,5 @@ class Agent(object):
 
         self.critic = Critic(obs_shape, action_shape, hidden_dim, hidden_depth, feature_dim).to(device)
         self.critic_target = []
-        
+        for i in range(target_num):
+            self.critic_target.append(Critic(obs_sha
