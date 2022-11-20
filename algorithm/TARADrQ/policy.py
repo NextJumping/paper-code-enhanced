@@ -220,4 +220,6 @@ class Agent(object):
             self.critic_target.append(Critic(obs_shape, action_shape, hidden_dim, hidden_depth, feature_dim).to(device))
             self.critic_target[i].load_state_dict(self.critic.state_dict())
 
-        self.actor.encoder.copy_conv_weig
+        self.actor.encoder.copy_conv_weights_from(self.critic.encoder)
+
+        self.log_alpha = torch.tensor(np.log(init_temperature)
