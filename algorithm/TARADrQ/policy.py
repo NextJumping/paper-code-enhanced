@@ -224,4 +224,6 @@ class Agent(object):
 
         self.log_alpha = torch.tensor(np.log(init_temperature)).to(device)
         self.log_alpha.requires_grad = True
-        self.target_entropy = -actio
+        self.target_entropy = -action_shape[0]
+
+        self.actor_optimizer = torch.optim.Adam(self.actor.parameters(
