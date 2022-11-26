@@ -227,4 +227,6 @@ class Agent(object):
         self.target_entropy = -action_shape[0]
 
         self.actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=lr)
-        self.critic_optimizer = torch.optim.Adam(self.critic.parameters
+        self.critic_optimizer = torch.optim.Adam(self.critic.parameters(),
+                                                 lr=lr)
+        self.log_alpha
