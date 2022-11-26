@@ -222,4 +222,6 @@ class Agent(object):
 
         self.actor.encoder.copy_conv_weights_from(self.critic.encoder)
 
-        self.log_alpha = torch.tensor(np.log(init_temperature)
+        self.log_alpha = torch.tensor(np.log(init_temperature)).to(device)
+        self.log_alpha.requires_grad = True
+        self.target_entropy = -actio
