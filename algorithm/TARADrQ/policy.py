@@ -229,4 +229,7 @@ class Agent(object):
         self.actor_optimizer = torch.optim.Adam(self.actor.parameters(), lr=lr)
         self.critic_optimizer = torch.optim.Adam(self.critic.parameters(),
                                                  lr=lr)
-        self.log_alpha
+        self.log_alpha_optimizer = torch.optim.Adam([self.log_alpha], lr=lr)
+
+        self.train()
+      
