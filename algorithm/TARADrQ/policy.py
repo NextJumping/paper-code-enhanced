@@ -233,4 +233,8 @@ class Agent(object):
 
         self.train()
         for i in range(target_num):
-            self.critic_target[i].train(
+            self.critic_target[i].train()
+
+        self.target_index = 0
+        self.target_num = target_num
+
