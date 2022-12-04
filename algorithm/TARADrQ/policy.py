@@ -232,4 +232,5 @@ class Agent(object):
         self.log_alpha_optimizer = torch.optim.Adam([self.log_alpha], lr=lr)
 
         self.train()
-      
+        for i in range(target_num):
+            self.critic_target[i].train(
