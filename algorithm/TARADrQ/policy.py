@@ -238,3 +238,6 @@ class Agent(object):
         self.target_index = 0
         self.target_num = target_num
 
+    def train(self, training=True):
+        self.training = training
+        self.ac
