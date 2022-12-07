@@ -244,4 +244,7 @@ class Agent(object):
         self.critic.train(training)
 
     @property
-    def alpha
+    def alpha(self):
+        return self.log_alpha.exp()
+
+    def select_action(self, obs,
