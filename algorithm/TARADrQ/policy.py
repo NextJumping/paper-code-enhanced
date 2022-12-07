@@ -249,3 +249,5 @@ class Agent(object):
 
     def select_action(self, obs, others, sample=False):
         obs = torch.FloatTensor(obs).to(self.device)
+        others = torch.FloatTensor(others).to(self.device)
+        dist = self.actor(obs, 
