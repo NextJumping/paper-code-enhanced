@@ -240,4 +240,8 @@ class Agent(object):
 
     def train(self, training=True):
         self.training = training
-        self.ac
+        self.actor.train(training)
+        self.critic.train(training)
+
+    @property
+    def alpha
