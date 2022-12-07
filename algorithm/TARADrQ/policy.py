@@ -247,4 +247,5 @@ class Agent(object):
     def alpha(self):
         return self.log_alpha.exp()
 
-    def select_action(self, obs,
+    def select_action(self, obs, others, sample=False):
+        obs = torch.FloatTensor(obs).to(self.device)
