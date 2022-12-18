@@ -250,4 +250,5 @@ class Agent(object):
     def select_action(self, obs, others, sample=False):
         obs = torch.FloatTensor(obs).to(self.device)
         others = torch.FloatTensor(others).to(self.device)
-        dist = self.actor(obs, 
+        dist = self.actor(obs, others)
+        action = dist.sample() if sample else dist.
