@@ -251,4 +251,6 @@ class Agent(object):
         obs = torch.FloatTensor(obs).to(self.device)
         others = torch.FloatTensor(others).to(self.device)
         dist = self.actor(obs, others)
-        action = dist.sample() if sample else dist.
+        action = dist.sample() if sample else dist.mean
+        action = action.clamp(*self.action_range)
+        assert action.n
