@@ -253,4 +253,7 @@ class Agent(object):
         dist = self.actor(obs, others)
         action = dist.sample() if sample else dist.mean
         action = action.clamp(*self.action_range)
-        assert action.n
+        assert action.ndim == 2 and action.shape[0] == 1
+        return utils.to_np(action[0])
+
+    def update_criti
