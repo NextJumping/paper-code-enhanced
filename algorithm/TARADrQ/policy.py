@@ -256,4 +256,5 @@ class Agent(object):
         assert action.ndim == 2 and action.shape[0] == 1
         return utils.to_np(action[0])
 
-    def update_criti
+    def update_critic(self, obs, obs_aug, action, reward, next_obs,
+                      nex
