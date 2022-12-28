@@ -257,4 +257,6 @@ class Agent(object):
         return utils.to_np(action[0])
 
     def update_critic(self, obs, obs_aug, action, reward, next_obs,
-                      nex
+                      next_obs_aug, not_done, others, next_others):
+        with torch.no_grad():
+           
