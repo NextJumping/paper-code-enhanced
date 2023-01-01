@@ -264,4 +264,5 @@ class Agent(object):
             log_prob = dist.log_prob(next_action).sum(-1, keepdim=True)
             target_Q = 0.0
             for i in range(self.target_num):
-     
+                target_Q1, target_Q2 = self.critic_target[i](next_obs, next_action, next_others)
+  
