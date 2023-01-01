@@ -259,4 +259,5 @@ class Agent(object):
     def update_critic(self, obs, obs_aug, action, reward, next_obs,
                       next_obs_aug, not_done, others, next_others):
         with torch.no_grad():
-           
+            dist = self.actor(next_obs, next_others)
+            next_action = dist
