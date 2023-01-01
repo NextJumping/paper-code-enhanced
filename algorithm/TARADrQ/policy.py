@@ -262,4 +262,6 @@ class Agent(object):
             dist = self.actor(next_obs, next_others)
             next_action = dist.rsample()
             log_prob = dist.log_prob(next_action).sum(-1, keepdim=True)
-   
+            target_Q = 0.0
+            for i in range(self.target_num):
+     
