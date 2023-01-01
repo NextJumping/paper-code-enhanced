@@ -260,4 +260,6 @@ class Agent(object):
                       next_obs_aug, not_done, others, next_others):
         with torch.no_grad():
             dist = self.actor(next_obs, next_others)
-            next_action = dist
+            next_action = dist.rsample()
+            log_prob = dist.log_prob(next_action).sum(-1, keepdim=True)
+   
