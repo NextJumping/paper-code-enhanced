@@ -265,4 +265,5 @@ class Agent(object):
             target_Q = 0.0
             for i in range(self.target_num):
                 target_Q1, target_Q2 = self.critic_target[i](next_obs, next_action, next_others)
-  
+                target_V = torch.min(target_Q1,
+                                     tar
