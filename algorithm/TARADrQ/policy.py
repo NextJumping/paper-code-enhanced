@@ -268,4 +268,6 @@ class Agent(object):
                 target_V = torch.min(target_Q1,
                                      target_Q2) - self.alpha.detach() * log_prob
                 target_Q += reward + (not_done * self.discount * target_V)
-            target_Q = target_Q / self.targe
+            target_Q = target_Q / self.target_num
+            dist_aug = self.actor(next_obs_aug, next_others)
+        
