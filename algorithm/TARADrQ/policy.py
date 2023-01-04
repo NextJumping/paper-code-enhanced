@@ -271,4 +271,6 @@ class Agent(object):
             target_Q = target_Q / self.target_num
             dist_aug = self.actor(next_obs_aug, next_others)
             next_action_aug = dist_aug.rsample()
-            log_prob_aug = dist_aug.log_prob(next_action_aug).sum(-1
+            log_prob_aug = dist_aug.log_prob(next_action_aug).sum(-1, keepdim=True)
+            target_Q_aug = 0.0
+            for i in range(self
