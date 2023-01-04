@@ -270,4 +270,5 @@ class Agent(object):
                 target_Q += reward + (not_done * self.discount * target_V)
             target_Q = target_Q / self.target_num
             dist_aug = self.actor(next_obs_aug, next_others)
-        
+            next_action_aug = dist_aug.rsample()
+            log_prob_aug = dist_aug.log_prob(next_action_aug).sum(-1
