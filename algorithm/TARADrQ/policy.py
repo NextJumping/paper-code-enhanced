@@ -273,4 +273,5 @@ class Agent(object):
             next_action_aug = dist_aug.rsample()
             log_prob_aug = dist_aug.log_prob(next_action_aug).sum(-1, keepdim=True)
             target_Q_aug = 0.0
-            for i in range(self
+            for i in range(self.target_num):
+                target_Q1, target_Q2 = self.critic_target[i](next
