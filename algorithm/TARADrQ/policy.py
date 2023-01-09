@@ -275,4 +275,5 @@ class Agent(object):
             target_Q_aug = 0.0
             for i in range(self.target_num):
                 target_Q1, target_Q2 = self.critic_target[i](next_obs_aug, next_action_aug, next_others)
-                target_V = torch.min(target_Q
+                target_V = torch.min(target_Q1, target_Q2) - self.alpha.detach() * log_prob_aug
+                target_Q_aug += rew
