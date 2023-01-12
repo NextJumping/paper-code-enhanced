@@ -277,4 +277,7 @@ class Agent(object):
                 target_Q1, target_Q2 = self.critic_target[i](next_obs_aug, next_action_aug, next_others)
                 target_V = torch.min(target_Q1, target_Q2) - self.alpha.detach() * log_prob_aug
                 target_Q_aug += reward + (not_done * self.discount * target_V)
-            target_Q_aug = target_Q_aug / sel
+            target_Q_aug = target_Q_aug / self.target_num
+            target_Q = (target_Q + target_Q_aug) / 2
+
+        current_Q1, curre
