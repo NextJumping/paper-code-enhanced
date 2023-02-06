@@ -291,4 +291,7 @@ class Agent(object):
 
 
         self.critic_optimizer.zero_grad()
-        
+        critic_loss.backward()
+        self.critic_optimizer.step()
+
+        return critic_loss.de
