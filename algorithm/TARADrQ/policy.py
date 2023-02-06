@@ -290,4 +290,5 @@ class Agent(object):
             Q2_aug, target_Q)
 
 
-   
+        self.critic_optimizer.zero_grad()
+        
