@@ -286,4 +286,8 @@ class Agent(object):
 
         Q1_aug, Q2_aug = self.critic(obs_aug, action, others)
 
-        critic_loss +=
+        critic_loss += F.mse_loss(Q1_aug, target_Q) + F.mse_loss(
+            Q2_aug, target_Q)
+
+
+   
