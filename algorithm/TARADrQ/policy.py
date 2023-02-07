@@ -297,4 +297,5 @@ class Agent(object):
         return critic_loss.detach()
 
     def update_actor_and_alpha(self, obs, others):
-      
+        dist = self.actor(obs, others, detach_encoder=True)
+        ac
