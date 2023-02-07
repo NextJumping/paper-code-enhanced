@@ -294,4 +294,7 @@ class Agent(object):
         critic_loss.backward()
         self.critic_optimizer.step()
 
-        return critic_loss.de
+        return critic_loss.detach()
+
+    def update_actor_and_alpha(self, obs, others):
+      
