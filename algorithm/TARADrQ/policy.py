@@ -298,4 +298,5 @@ class Agent(object):
 
     def update_actor_and_alpha(self, obs, others):
         dist = self.actor(obs, others, detach_encoder=True)
-        ac
+        action = dist.rsample()
+        log_prob = dist.log_prob(action).sum(-1,
