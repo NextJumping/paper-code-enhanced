@@ -299,4 +299,5 @@ class Agent(object):
     def update_actor_and_alpha(self, obs, others):
         dist = self.actor(obs, others, detach_encoder=True)
         action = dist.rsample()
-        log_prob = dist.log_prob(action).sum(-1,
+        log_prob = dist.log_prob(action).sum(-1, keepdim=True)
+        actor_Q1, actor_Q2 = self.critic(obs, action, others, detach
