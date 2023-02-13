@@ -300,4 +300,8 @@ class Agent(object):
         dist = self.actor(obs, others, detach_encoder=True)
         action = dist.rsample()
         log_prob = dist.log_prob(action).sum(-1, keepdim=True)
-        actor_Q1, actor_Q2 = self.critic(obs, action, others, detach
+        actor_Q1, actor_Q2 = self.critic(obs, action, others, detach_encoder=True)
+
+        actor_Q = torch.min(actor_Q1, actor_Q2)
+
+        acto
