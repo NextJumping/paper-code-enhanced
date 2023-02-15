@@ -304,4 +304,6 @@ class Agent(object):
 
         actor_Q = torch.min(actor_Q1, actor_Q2)
 
-        acto
+        actor_loss = (self.alpha.detach() * log_prob - actor_Q).mean()
+
+        self.actor_optimizer.zero_gra
