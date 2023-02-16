@@ -306,4 +306,7 @@ class Agent(object):
 
         actor_loss = (self.alpha.detach() * log_prob - actor_Q).mean()
 
-        self.actor_optimizer.zero_gra
+        self.actor_optimizer.zero_grad()
+        actor_loss.backward()
+
+        self.actor_optimizer.step()
