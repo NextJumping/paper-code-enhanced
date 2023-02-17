@@ -310,3 +310,8 @@ class Agent(object):
         actor_loss.backward()
 
         self.actor_optimizer.step()
+
+
+        self.log_alpha_optimizer.zero_grad()
+        alpha_loss = (self.alpha *
+    
