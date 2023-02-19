@@ -316,4 +316,6 @@ class Agent(object):
         alpha_loss = (self.alpha *
                       (-log_prob - self.target_entropy).detach()).mean()
 
-        alpha_l
+        alpha_loss.backward()
+        self.log_alpha.grad.data.clamp_(-1, 1)
+        se
