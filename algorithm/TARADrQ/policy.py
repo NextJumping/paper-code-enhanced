@@ -323,4 +323,5 @@ class Agent(object):
 
     def update(self, replay_buffer, step):
 
-       
+        obs, action, reward, next_obs, not_done, obs_aug, next_obs_aug,\
+        othe
