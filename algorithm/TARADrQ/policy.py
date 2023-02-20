@@ -318,4 +318,9 @@ class Agent(object):
 
         alpha_loss.backward()
         self.log_alpha.grad.data.clamp_(-1, 1)
-        se
+        self.log_alpha_optimizer.step()
+
+
+    def update(self, replay_buffer, step):
+
+       
