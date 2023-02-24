@@ -326,4 +326,6 @@ class Agent(object):
         obs, action, reward, next_obs, not_done, obs_aug, next_obs_aug,\
         others, next_others = replay_buffer.sample(self.batch_size)
         critic_loss = self.update_critic(obs, obs_aug, action, reward, next_obs,
-               
+                                              next_obs_aug, not_done, others, next_others)
+
+     
