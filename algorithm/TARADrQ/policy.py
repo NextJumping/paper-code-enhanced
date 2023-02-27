@@ -328,4 +328,5 @@ class Agent(object):
         critic_loss = self.update_critic(obs, obs_aug, action, reward, next_obs,
                                               next_obs_aug, not_done, others, next_others)
 
-     
+        if step % self.actor_update_frequency == 0:
+            self.update_actor_a
