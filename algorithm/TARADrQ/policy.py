@@ -329,4 +329,6 @@ class Agent(object):
                                               next_obs_aug, not_done, others, next_others)
 
         if step % self.actor_update_frequency == 0:
-            self.update_actor_a
+            self.update_actor_and_alpha(obs, others)
+
+        if step % self.critic_target_update_frequen
