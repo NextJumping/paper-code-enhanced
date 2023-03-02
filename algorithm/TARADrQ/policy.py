@@ -331,4 +331,5 @@ class Agent(object):
         if step % self.actor_update_frequency == 0:
             self.update_actor_and_alpha(obs, others)
 
-        if step % self.critic_target_update_frequen
+        if step % self.critic_target_update_frequency == 0:
+            self.target_index = (self.target_index + 1) % self.targe
