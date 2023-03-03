@@ -336,3 +336,6 @@ class Agent(object):
             utils.soft_update_params(self.critic, self.critic_target[self.target_index],
                                      self.critic_tau)
         return critic_loss
+
+    def save(self, save_i):
+        torch.save(self.actor.state_dict(), "ac
