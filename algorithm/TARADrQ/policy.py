@@ -338,4 +338,5 @@ class Agent(object):
         return critic_loss
 
     def save(self, save_i):
-        torch.save(self.actor.state_dict(), "ac
+        torch.save(self.actor.state_dict(), "actor_" + str(save_i))
+        torch.save(self.critic.state_dict(), "critic
