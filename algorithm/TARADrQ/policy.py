@@ -339,4 +339,7 @@ class Agent(object):
 
     def save(self, save_i):
         torch.save(self.actor.state_dict(), "actor_" + str(save_i))
-        torch.save(self.critic.state_dict(), "critic
+        torch.save(self.critic.state_dict(), "critic_" + str(save_i))
+
+    def load(self, save_i):
+        self.actor.load_state_dict(torch.load("a
