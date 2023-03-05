@@ -342,4 +342,4 @@ class Agent(object):
         torch.save(self.critic.state_dict(), "critic_" + str(save_i))
 
     def load(self, save_i):
-        self.actor.load_state_dict(torch.load("a
+        self.actor.load_state_dict(torch.load("actor_" + str(save_i)))
