@@ -8,4 +8,5 @@ import utils
 
 
 class ReplayBuffer(object):
-    d
+    def __init__(self, obs_shape, action_shape, capacity, image_pad, device):
+        sel
