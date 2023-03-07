@@ -12,4 +12,6 @@ class ReplayBuffer(object):
         self.capacity = capacity
         self.device = device
 
-        self.aug_trans =
+        self.aug_trans = nn.Sequential(
+            nn.ReplicationPad2d(image_pad),
+            kornia.au
