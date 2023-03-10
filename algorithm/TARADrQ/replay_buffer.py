@@ -14,4 +14,6 @@ class ReplayBuffer(object):
 
         self.aug_trans = nn.Sequential(
             nn.ReplicationPad2d(image_pad),
-            kornia.au
+            kornia.augmentation.RandomCrop((obs_shape[-2], obs_shape[-1])))
+
+        self.obses = n
