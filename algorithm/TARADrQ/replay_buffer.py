@@ -28,4 +28,7 @@ class ReplayBuffer(object):
 
 
         self.idx = 0
-        self
+        self.full = False
+
+    def __len__(self):
+        return self.capacity if sel
