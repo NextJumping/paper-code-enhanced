@@ -41,4 +41,7 @@ class ReplayBuffer(object):
         np.copyto(self.not_dones[self.idx], not done)
         np.copyto(self.not_dones_no_max[self.idx], not done_no_max)
         np.copyto(self.others[self.idx], others)
-        np.copyto(self.next_others[sel
+        np.copyto(self.next_others[self.idx], next_others)
+
+
+        self.idx = (self.idx + 1) % 
