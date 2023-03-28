@@ -44,4 +44,7 @@ class ReplayBuffer(object):
         np.copyto(self.next_others[self.idx], next_others)
 
 
-        self.idx = (self.idx + 1) % 
+        self.idx = (self.idx + 1) % self.capacity
+        self.full = self.full or self.idx == 0
+
+    def sample(self, batch_si
