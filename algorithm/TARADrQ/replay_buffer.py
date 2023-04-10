@@ -70,4 +70,7 @@ class ReplayBuffer(object):
         next_others = torch.as_tensor(self.next_others[idxs], device=self.device)
 
 
-        obses = self.aug_tran
+        obses = self.aug_trans(obses)
+        next_obses = self.aug_trans(next_obses)
+
+        obses_aug =
