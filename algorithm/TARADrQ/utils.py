@@ -14,4 +14,8 @@ from skimage.util.shape import view_as_windows
 from torch import distributions as pyd
 
 
-cla
+class eval_mode(object):
+    def __init__(self, *models):
+        self.models = models
+
+    def __
