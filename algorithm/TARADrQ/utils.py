@@ -18,4 +18,7 @@ class eval_mode(object):
     def __init__(self, *models):
         self.models = models
 
-    def __
+    def __enter__(self):
+        self.prev_states = []
+        for model in self.models:
+ 
