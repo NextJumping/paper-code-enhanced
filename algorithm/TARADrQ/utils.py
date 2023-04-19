@@ -22,4 +22,7 @@ class eval_mode(object):
         self.prev_states = []
         for model in self.models:
             self.prev_states.append(model.training)
-            mod
+            model.train(False)
+
+    def __exit__(self, *args):
+        for model, state in zip(self.mod
