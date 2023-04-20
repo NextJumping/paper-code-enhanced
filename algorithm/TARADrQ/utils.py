@@ -25,4 +25,6 @@ class eval_mode(object):
             model.train(False)
 
     def __exit__(self, *args):
-        for model, state in zip(self.mod
+        for model, state in zip(self.models, self.prev_states):
+            model.train(state)
+        return False
