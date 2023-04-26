@@ -45,4 +45,7 @@ def set_seed_everywhere(seed):
 
 
 def make_dir(*path_parts):
-    dir_pa
+    dir_path = os.path.join(*path_parts)
+    try:
+        os.mkdir(dir_path)
+    except OSE
