@@ -56,4 +56,9 @@ def make_dir(*path_parts):
 def tie_weights(src, trg):
     assert type(src) == type(trg)
     trg.weight = src.weight
-    trg.bias = src.b
+    trg.bias = src.bias
+
+
+def weight_init(m):
+    if isinstance(m, nn.Linear):
+        nn.init.orthog
