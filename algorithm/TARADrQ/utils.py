@@ -71,4 +71,5 @@ def weight_init(m):
             m.bias.data.fill_(0.0)
 
 
-def mlp(input_dim, hidden
+def mlp(input_dim, hidden_dim, output_dim, hidden_depth, output_mod=None):
+    if hi
