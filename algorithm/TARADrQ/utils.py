@@ -85,4 +85,7 @@ def mlp(input_dim, hidden_dim, output_dim, hidden_depth, output_mod=None):
     return trunk
 
 
-def 
+def to_np(t):
+    if t is None:
+        return None
+    elif t.nelement() == 0
