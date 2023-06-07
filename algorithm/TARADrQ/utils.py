@@ -88,4 +88,10 @@ def mlp(input_dim, hidden_dim, output_dim, hidden_depth, output_mod=None):
 def to_np(t):
     if t is None:
         return None
-    elif t.nelement() == 0
+    elif t.nelement() == 0:
+        return np.array([])
+    else:
+        return t.cpu().detach().numpy()
+
+
+class Fr
