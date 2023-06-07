@@ -94,4 +94,6 @@ def to_np(t):
         return t.cpu().detach().numpy()
 
 
-class Fr
+class FrameStack(gym.Wrapper):
+    def __init__(self, env, k):
+        gym.Wrap
