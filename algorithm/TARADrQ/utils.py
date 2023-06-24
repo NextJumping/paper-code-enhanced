@@ -101,4 +101,6 @@ class FrameStack(gym.Wrapper):
         self._frames = deque([], maxlen=k)
         shp = env.observation_space.shape
         self.observation_space = gym.spaces.Box(
-   
+            low=0,
+            high=1,
+            shape=((shp[0] * k,) + shp[
