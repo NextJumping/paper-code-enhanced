@@ -114,4 +114,6 @@ class FrameStack(gym.Wrapper):
         return self._get_obs()
 
     def step(self, action):
-        obs, reward, don
+        obs, reward, done, info = self.env.step(action)
+        self._frames.append(obs)
+        return 
