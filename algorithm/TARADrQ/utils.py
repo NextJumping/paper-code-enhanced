@@ -123,4 +123,6 @@ class FrameStack(gym.Wrapper):
         return np.concatenate(list(self._frames), axis=0)
 
 
-class TanhTransfor
+class TanhTransform(pyd.transforms.Transform):
+    domain = pyd.constraints.real
+    codomain =
