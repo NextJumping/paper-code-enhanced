@@ -134,4 +134,7 @@ class TanhTransform(pyd.transforms.Transform):
 
     @staticmethod
     def atanh(x):
-        return 0.5 * (x.log1p() - (-x).l
+        return 0.5 * (x.log1p() - (-x).log1p())
+
+    def __eq__(self, other):
+        return isinstance(other, Tan
