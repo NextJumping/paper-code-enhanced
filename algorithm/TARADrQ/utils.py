@@ -146,4 +146,7 @@ class TanhTransform(pyd.transforms.Transform):
         return self.atanh(y)
 
     def log_abs_det_jacobian(self, x, y):
-        r
+        return 2. * (math.log(2.) - x - F.softplus(-2. * x))
+
+
+class SquashedNormal(
